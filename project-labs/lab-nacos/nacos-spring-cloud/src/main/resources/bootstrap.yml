@@ -1,0 +1,58 @@
+node:
+  id: 1
+
+logging:
+  level:
+    root: INFO               # 设置全局日志级别为 INFO
+    com.liaozh: DEBUG # Spring 相关包的日志级别为 DEBUG
+
+spring:
+  application:
+    name: '@parent.artifactId@' #应用名称，从pom文件中读取相应值
+  profiles:
+    active: '@profiles.active@' # 环境配置
+  cloud:
+    nacos:
+      discovery: #https://github.com/alibaba/spring-cloud-alibaba/wiki/Nacos-discovery
+        server-addr: ${spring.cloud.nacos.common.server-addr} #作为配置中心的nacos server地址, 多个地址逗号分开
+        username: ${spring.cloud.nacos.common.username}
+        password: ${spring.cloud.nacos.common.password}
+        namespace: ${spring.cloud.nacos.common.namespace} #配置的命名空间
+        service: ${spring.application.name} #服务名，给当前的服务命名
+        enabled: true #是否使用 Nacos 作为您的服务注册与发现
+        weight: 1 #权重，取值范围 1 到 100，数值越大，权重越大
+        watch-delay: 30000
+        watch:
+          enabled: true #是否开启Nacos Watch(可以设置成false来关闭 watch)
+        metadata:
+          weight: 1
+        cluster-name: #集群名称
+      config: #https://github.com/alibaba/spring-cloud-alibaba/wiki/Nacos-config
+        server-addr: ${spring.cloud.nacos.common.server-addr} #作为配置中心的nacos server地址, 多个地址逗号分开
+        username: ${spring.cloud.nacos.common.username}
+        password: ${spring.cloud.nacos.common.password}
+        namespace: ${spring.cloud.nacos.common.namespace} #配置的命名空间
+        name: ${spring.application.name}-${node.id}
+        group: ${spring.application.name} #配置的分组 默认 default_group
+        context-path: /nacos
+        file-extension: yaml #配置的文件扩展名
+        encode: UTF-8 #配置的内容编码方式
+        config-long-poll-timeout: 30000 #长轮询的超时时间，单位为毫秒
+        config-retry-time: 2000 #长轮询任务重试时间，单位为毫秒
+        max-retry: 3 #长轮询的重试次数
+        enable-remote-sync-config: false #监听器首次添加时拉取远端配置
+        timeout: 3000 #获取配置的超时时间(单位:ms)
+        enabled: true #是否完全关闭 Spring Cloud Nacos Config
+        refresh-enabled: true #动态刷新，是否开启监听和自动刷新
+        shared-configs:
+          - data-id: ${spring.cloud.nacos.config.group}.${spring.cloud.nacos.config.file-extension}
+            group: ${spring.cloud.nacos.config.group}
+            refresh: true #在配置变更时，是否动态刷新，缺省默认 false
+        #扩展配置
+        #extension-configs:
+          #- data-id: ${spring.cloud.nacos.config.group}.${spring.cloud.nacos.config.file-extension}
+            #group: ${spring.cloud.nacos.config.group}
+            #refresh: true #在配置变更时，是否动态刷新，缺省默认 false
+        #客户端工作线程数量配置 仅在初始化时生效 默认数量=工作核心*2
+        clientWorkerMaxThreadCount: 4
+        clientWorkerThreadCount: 2 #优先级高于max

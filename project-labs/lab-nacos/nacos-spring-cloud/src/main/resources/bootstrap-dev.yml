@@ -1,0 +1,9 @@
+# 开发环境
+spring:
+  cloud:
+    nacos:
+      common:
+        server-addr: 172.24.253.160:8848 #作为服务注册中心的nacos server地址, 多个地址逗号分开
+        username: nacos #连接密码认证-用户名
+        password: nacos #连接密码认证-密码
+        namespace: ${NAMESPACE:cdf5148d-030f-49c0-83ce-22c33d7debdf} #配置的命名空间
