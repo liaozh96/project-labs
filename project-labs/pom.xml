@@ -13,7 +13,7 @@
 
     <modules>
         <module>dependencies</module>
-        <module>lab-nacos</module>
+        <module>lab-dynamic-naming</module>
     </modules>
 
     <properties>
