@@ -13,6 +13,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = "server.config")
 public class NacosCloudServerConfig {
 
+    /** 生效的配置名称 */
+    private String name;
+
     private boolean debug;
 
     private boolean block;
@@ -20,6 +23,14 @@ public class NacosCloudServerConfig {
     private int updateTime;
 
     private String listenId;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setDebug(boolean debug) {
         this.debug = debug;

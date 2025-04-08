@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Configuration;
  * nacos cloud 配置
  *
  * @author: liaozh
- * @date: 2025/4/3
+ * @date: 2025/4/7
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(NacosCloudServerConfig.class)
-public class NacosCloudServerConfiguration {}
+public class NacosCloudServerConfiguration {
+}
