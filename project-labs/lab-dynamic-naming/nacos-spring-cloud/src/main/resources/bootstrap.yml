@@ -8,7 +8,7 @@ logging:
 
 spring:
   application:
-    name: '@parent.artifactId@' #应用名称，从pom文件中读取相应值
+    name: '@artifactId@' #应用名称，从pom文件中读取相应值
   profiles:
     active: '@profiles.active@' # 环境配置
   cloud:
